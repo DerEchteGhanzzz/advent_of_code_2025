@@ -1,3 +1,4 @@
+#[allow(unused)]
 use std::{collections::{HashMap, HashSet, VecDeque}, fmt::Display, ops::{Add, Sub}};
 use std::hash::Hash;
 
@@ -15,7 +16,6 @@ impl CharMap {
         let mut map = HashMap::new();
         let mut specials = HashMap::new();
         let mut x_max = 0;
-        let mut y_max = 0;
 
         let mut y = 0;
         for row in string_vec {
@@ -30,7 +30,7 @@ impl CharMap {
             x_max = x as usize;
             y += 1;
         }
-        y_max = y as usize;
+        let y_max = y as usize;
         CharMap { map, specials, obstacle, free_space, x_max, y_max }
     }
 
@@ -39,6 +39,14 @@ impl CharMap {
             return self.map.get(location).unwrap() == &self.free_space;
         }
         return false; 
+    }
+    
+    pub fn obstacle(&self) -> char {
+        self.obstacle
+    }
+    
+    pub fn specials(&self) -> &HashMap<char, Vector2> {
+        &self.specials
     }
 }
 
@@ -63,6 +71,7 @@ impl Graph for CharMap {
     }
 }
 
+#[allow(dead_code)]
 pub trait Graph {
     type Node: Eq + Hash + Clone;
 
