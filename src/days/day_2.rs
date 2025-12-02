@@ -15,39 +15,29 @@ pub fn solve_b(input: &Vec<String>) -> i64 {
             let b = splt.next().unwrap();
             let e = splt.next().unwrap();
             i64::from_str_radix(b, 10).unwrap()..=i64::from_str_radix(e, 10).unwrap()
-        }).flat_map(|it| it.filter(|x| !check_valid2(x))).sum()
+        }).flat_map(|it| it.filter(|x| is_invalid(x))).sum()
 }
 
 fn check_valid(x: &i64) -> bool {
     let s = x.to_string();
-    if s.chars().next() == Some('0') {
-        return false;
-    }
     s[0..s.len()/2] != s[s.len()/2..s.len()]
 }
 
-fn check_valid2(x: &i64) -> bool {
+fn is_invalid(x: &i64) -> bool {
     let s = x.to_string();
-    if s.len() == 1 {
-        return true;
-    }
-    if s.chars().next() == Some('0') {
-        return false;
-    }
-    for j in (1..=s.len() / 2).rev() {
-        
-        if s.len() % j != 0 {
-            continue;
-        } 
-
+    
+    for i in (2..=s.len() / 2).filter(|i| s.len() % i == 0) {
+        let ss = &s[0..s.len()/i];
         let mut invalid = true;
-        let ss = &s[0..j];
-        for i in (j..=s.len() - j).step_by(j) {
-            invalid = invalid && ss == &s[i..i+j];
+        for j in (s.len()/i..s.len()).step_by(s.len()/i) {
+            if ss != &s[j..j+s.len()/i] {
+                invalid = false;
+                break;
+            }
         }
         if invalid {
-            return false;
+            return true;
         }
     }
-    true
+    s.chars().all(|c| c.to_string() == s[0..1])
 }
