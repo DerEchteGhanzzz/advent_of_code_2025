@@ -19,7 +19,7 @@ fn run_day<A: std::fmt::Debug, B: std::fmt::Debug>(day: &str, solve_a: fn(&Vec<S
 fn main() {
     run_day("1", days::day_1::solve_a, days::day_1::solve_b);
     run_day("2", days::day_2::solve_a, days::day_2::solve_b);
-    // run_day("3", days::day_3::solve_a, days::day_3::solve_b);
+    run_day("3", days::day_3::solve_a, days::day_3::solve_b);
     // run_day("4", days::day_4::solve_a, days::day_4::solve_b);
     // run_day("5", days::day_5::solve_a, days::day_5::solve_b);
     // run_day("6", days::day_6::solve_a, days::day_6::solve_b);
