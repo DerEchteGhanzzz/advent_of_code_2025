@@ -41,6 +41,8 @@ impl CharMap {
         return false; 
     }
     
+    
+
     pub fn obstacle(&self) -> char {
         self.obstacle
     }
